@@ -5,6 +5,16 @@
 
 using namespace std;
 
+// Insertion Sort
+//
+// Time complexity:
+//   best case:    O(n)
+//   average case: O(n^2)
+//   worst case:   O(n^2)
+//
+// Space complexity
+//   O(1)
+
 template <class TValue>
 void insertion_sort(vector<TValue>& array)
 {
