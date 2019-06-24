@@ -4,3 +4,4 @@ project(Sorting)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(bubble_sort bubble_sort.cpp)
+add_executable(insertion_sort insertion_sort.cpp)
