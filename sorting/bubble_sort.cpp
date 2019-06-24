@@ -1,6 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <iostream> // cout
+#include <vector> // vector
+#include <algorithm> // swap
+
+#include "shared.h" // print_array
 
 using namespace std;
 
@@ -22,16 +24,6 @@ void bubble_sort(vector<TValue> &array)
             break;
         }
     }
-}
-
-template <class TValue>
-void print_array(const vector<TValue> &array)
-{
-    for (auto item : array) {
-        cout<<item<<" ";
-    }
-
-    cout<<endl;
 }
 
 int main()
