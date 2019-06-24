@@ -10,10 +10,16 @@ void bubble_sort(vector<TValue> &array)
     auto size = array.size();
 
     for (auto i = 0; i < size; ++i) {
+        bool sorted = true;
         for (auto j = 1; j < size - i; ++j) {
             if (array[j - 1] > array[j]) {
                 swap(array[j - 1], array[j]);
+                sorted = false;
             }
+        }
+
+        if (sorted) {
+            break;
         }
     }
 }
