@@ -5,20 +5,45 @@
 
 using namespace std;
 
-template<class TValue>
-void quick_sort(vector<TValue>& array, size_t left, size_t right)
+template<class Iterator>
+Iterator partition(Iterator left, Iterator right)
 {
-    auto size = right - left + 1;
-
-    if (size <= 1) {
-        return;
+    if (left >= right) {
+        return right;
     }
+
+    auto pivot = left;
+    ++left;
+    --right;
+
+    while (left <= right) {
+        if (*left > *pivot && *right < *pivot) {
+            swap(*left, *right);
+        }
+
+        if (*left <= *pivot) {
+            ++left;
+        }
+        if (*right > *pivot) {
+            --right;
+        }
+    }
+
+    swap(*pivot, *right);
+
+    return right;
 }
 
-template<class TValue>
-void quick_sort(vector<TValue>& array)
+template<class Iterator>
+void quick_sort(Iterator left, Iterator right)
 {
-    quick_sort(array, 0, array.size() - 1);
+    if (distance(left, right) <= 1) {
+        return;
+    }
+
+    auto pivot = partition(left, right);
+    quick_sort(left, pivot);
+    quick_sort(pivot + 1, right);
 }
 
 int main()
@@ -26,7 +51,7 @@ int main()
     vector<int> array {10, 1, 7, 5, 2, 2, 5, 8 };
 
     print_array(array);
-    quick_sort(array);
+    quick_sort(array.begin(), array.end());
     print_array(array);
 
     return 0;
