@@ -3,7 +3,15 @@
 
 #include "shared.h" // print_array
 
-using namespace std;
+// Quick Sort
+//
+// Time complexity:
+//   best case:    O(n*log(n))
+//   average case: O(n*log(n))
+//   worst case:   O(n^2)
+//
+// Space complexity
+//   O(log(n))
 
 template<class Iterator>
 Iterator partition(Iterator left, Iterator right)
@@ -17,8 +25,8 @@ Iterator partition(Iterator left, Iterator right)
     --right;
 
     while (left <= right) {
-        if (*left > *pivot && *right < *pivot) {
-            swap(*left, *right);
+        if (*left > *pivot && *right <= *pivot) {
+            std::swap(*left, *right);
         }
 
         if (*left <= *pivot) {
@@ -29,7 +37,7 @@ Iterator partition(Iterator left, Iterator right)
         }
     }
 
-    swap(*pivot, *right);
+    std::swap(*pivot, *right);
 
     return right;
 }
@@ -48,7 +56,7 @@ void quick_sort(Iterator left, Iterator right)
 
 int main()
 {
-    vector<int> array {10, 1, 7, 5, 2, 2, 5, 8 };
+    std::vector<int> array {10, 1, 7, 5, 2, 2, 5, 8 };
 
     print_array(array);
     quick_sort(array.begin(), array.end());
