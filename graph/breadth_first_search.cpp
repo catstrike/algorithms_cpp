@@ -6,7 +6,10 @@
 
 using namespace std;
 
-
+// Breadth first search
+//
+// Time complexity: O(v + e)
+// Space complexity: v
 
 class Node
 {
