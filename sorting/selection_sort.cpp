@@ -1,7 +1,7 @@
 #include <vector> // std::vector
 #include <algorithm> // std::swap
 
-#include "shared.h"
+#include "array_utility.h" // print_array
 
 using namespace std;
 

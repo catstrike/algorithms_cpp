@@ -1,5 +1,5 @@
-#ifndef _SHARED_H_
-#define _SHARED_H_
+#ifndef _SHARED_ARRAY_UTILITY_H_
+#define _SHARED_ARRAY_UTILITY_H_
 
 #include <iostream> // std::cout, std::endl
 #include <vector> // std::vector
@@ -14,4 +14,4 @@ void print_array(const std::vector<TValue> &array)
     std::cout<<std::endl;
 }
 
-#endif // _SHARED_H_
+#endif // _SHARED_ARRAY_UTILITY_H_
