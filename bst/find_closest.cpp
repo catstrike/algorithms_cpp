@@ -41,3 +41,8 @@ int findClosestValueInBst(BST* tree, int target) {
 	
   return traverse(tree, target, value, distance);
 }
+
+int main()
+{
+	return 0;
+}
