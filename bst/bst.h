@@ -1,6 +1,9 @@
 #ifndef _BST_BST_H_
 #define _BST_BST_H_
 
+// include <iostream>
+// include "bst.h"
+
 template<class TValue>
 struct BSTNode
 {

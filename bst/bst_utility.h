@@ -31,6 +31,6 @@ template <class TValue>
 void bst_print(const BST<TValue> &bst)  
 {  
     bst_print(bst.getRoot(), 0);  
-}  
+}
 
 #endif // _BST_BST_UTILITY_H_
