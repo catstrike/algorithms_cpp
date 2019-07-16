@@ -1,7 +1,6 @@
 #include <iostream>
-#include <limits>
 #include "bst.h"
-#include "validate_bst.h"
+#include "bst_validate.h"
 
 using namespace std;
 
