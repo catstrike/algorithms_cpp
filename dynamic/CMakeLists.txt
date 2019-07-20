@@ -1,0 +1,6 @@
+project(Dynamic)
+
+set(CMAKE_CXX_STANDARD 14)
+
+add_executable(max_subset_summ_no_adjacent max_subset_summ_no_adjacent.cpp)
+add_executable(numbers_of_ways_to_make_change numbers_of_ways_to_make_change.cpp)
