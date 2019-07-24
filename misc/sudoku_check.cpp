@@ -5,6 +5,7 @@ using namespace std;
 
 #define BOARD_SIZE 9
 #define SQUARE_SIZE 3
+#define SQUARES_IN_ROW (BOARD_SIZE / SQUARE_SIZE)
 #define MIN_VALUE 1
 #define MAX_VALUE 9
 
@@ -22,6 +23,7 @@ bool isValid(const vector<vector<int>>& board)
 
     vector<short> rowMasks(BOARD_SIZE);
     vector<short> columnMasks(BOARD_SIZE);
+    vector<short> squareMasks(BOARD_SIZE);
 
     for (auto i = 0; i < BOARD_SIZE; ++i) {
         for (auto j = 0; j < BOARD_SIZE; ++j) {
@@ -30,32 +32,19 @@ bool isValid(const vector<vector<int>>& board)
             if (value < MIN_VALUE || value > MAX_VALUE) {
                 return false;
             }
+
+            auto squareIndex = (i / SQUARE_SIZE) * SQUARES_IN_ROW + (j / SQUARE_SIZE);
+
             if (IS_FLAG_SET(rowMasks[i], value) ||
-                IS_FLAG_SET(columnMasks[j], value)) 
+                IS_FLAG_SET(columnMasks[j], value) ||
+                IS_FLAG_SET(squareMasks[squareIndex], value)) 
             {
                 return false;
             }
 
             SET_FLAG(rowMasks[i], value);
             SET_FLAG(columnMasks[j], value);
-        }
-    }
-
-    for (auto i = 0; i < SQUARE_SIZE; ++i) {
-        for (auto j = 0; j < SQUARE_SIZE; ++j) {
-            short mask = 0;
-
-            for (auto k = 0; k < SQUARE_SIZE; ++k) {
-                for (auto l = 0; l < SQUARE_SIZE; ++l) {
-                    auto value = board[i * SQUARE_SIZE + k][j * SQUARE_SIZE + l];
-
-                    if (IS_FLAG_SET(mask, value)) {
-                        return false;
-                    }
-
-                    SET_FLAG(mask, value);
-                }
-            }
+            SET_FLAG(squareMasks[squareIndex], value);
         }
     }
 
@@ -79,17 +68,17 @@ int main()
     };
 
     vector<vector<int>> board1 {
-        {1, 4, 3, 5,  2, 6, 9,  7, 8},
-        {3, 6, 8, 2,  5, 7, 1,  4, 9},
-        {2, 1, 9, 7,  8, 3, 4,  5, 6},
-        
-        {7, 8, 2, 6,  1, 9, 5,  3, 4},
-        {5, 3, 7, 4,  6, 8, 2,  9, 1},
-        {8, 9, 5, 1,  7, 4, 3,  6, 2},
-
-        {4, 5, 1, 9,  3, 2, 6,  8, 7},
-        {6, 2, 4, 8,  9, 5, 7,  1, 3},
-        {9, 7, 6, 3,  4, 1, 8,  2, 5}
+        {1, 4, 3,  5, 2, 6,  9, 7, 8},
+        {3, 6, 8,  2, 5, 7,  1, 4, 9},
+        {2, 1, 9,  7, 8, 3,  4, 5, 6},
+         
+        {7, 8, 2,  6, 1, 9,  5, 3, 4},
+        {5, 3, 7,  4, 6, 8,  2, 9, 1},
+        {8, 9, 5,  1, 7, 4,  3, 6, 2},
+ 
+        {4, 5, 1,  9, 3, 2,  6, 8, 7},
+        {6, 2, 4,  8, 9, 5,  7, 1, 3},
+        {9, 7, 6,  3, 4, 1,  8, 2, 5}
     };
 
     cout<<"The board 0 is "<<(isValid(board0) ? "valid" : "invalid")<<endl;
