@@ -3,14 +3,11 @@
 
 using namespace std;
 
-#define BOARD_SIZE 9
 #define SQUARE_SIZE 3
+#define BOARD_SIZE (SQUARE_SIZE * SQUARE_SIZE)
 #define SQUARES_IN_ROW (BOARD_SIZE / SQUARE_SIZE)
 #define MIN_VALUE 1
-#define MAX_VALUE 9
-
-#define SET_FLAG(x, value) (x |= (1 << value))
-#define IS_FLAG_SET(x, value) ((x & (1 << value)) == (1 << value))
+#define MAX_VALUE BOARD_SIZE
 
 bool isValid(const vector<vector<int>>& board) 
 {
@@ -21,11 +18,13 @@ bool isValid(const vector<vector<int>>& board)
         return false;
     }
 
-    vector<short> rowMasks(BOARD_SIZE);
     vector<short> columnMasks(BOARD_SIZE);
     vector<short> squareMasks(BOARD_SIZE);
 
     for (auto i = 0; i < BOARD_SIZE; ++i) {
+        auto squareRowOffset = (i / SQUARE_SIZE) * SQUARES_IN_ROW;
+        short rowMask {0};
+
         for (auto j = 0; j < BOARD_SIZE; ++j) {
             auto value = board[i][j];
 
@@ -33,18 +32,19 @@ bool isValid(const vector<vector<int>>& board)
                 return false;
             }
 
-            auto squareIndex = (i / SQUARE_SIZE) * SQUARES_IN_ROW + (j / SQUARE_SIZE);
+            auto valueMask = 1 << (value - 1);
+            auto squareIndex = squareRowOffset + (j / SQUARE_SIZE);
 
-            if (IS_FLAG_SET(rowMasks[i], value) ||
-                IS_FLAG_SET(columnMasks[j], value) ||
-                IS_FLAG_SET(squareMasks[squareIndex], value)) 
+            if ((rowMask & valueMask) ||
+                (columnMasks[j] & valueMask) ||
+                (squareMasks[squareIndex] & valueMask)) 
             {
                 return false;
             }
 
-            SET_FLAG(rowMasks[i], value);
-            SET_FLAG(columnMasks[j], value);
-            SET_FLAG(squareMasks[squareIndex], value);
+            rowMask |= valueMask;
+            columnMasks[j] |= valueMask;
+            squareMasks[squareIndex] |= valueMask;
         }
     }
 
