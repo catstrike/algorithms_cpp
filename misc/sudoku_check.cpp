@@ -9,7 +9,7 @@ using namespace std;
 #define MIN_VALUE 1
 #define MAX_VALUE BOARD_SIZE
 
-bool isValid(const vector<vector<int>>& board) 
+bool sudokuCheck(const vector<vector<int>>& board) 
 {
     auto rows = board.size();
     auto columns = board[0].size();
@@ -18,8 +18,8 @@ bool isValid(const vector<vector<int>>& board)
         return false;
     }
 
-    vector<short> columnMasks(BOARD_SIZE);
-    vector<short> squareMasks(BOARD_SIZE);
+    short columnMasks[BOARD_SIZE] {};
+    short squareMasks[BOARD_SIZE] {};
 
     for (auto i = 0; i < BOARD_SIZE; ++i) {
         auto squareRowOffset = (i / SQUARE_SIZE) * SQUARES_IN_ROW;
@@ -81,8 +81,8 @@ int main()
         {9, 7, 6,  3, 4, 1,  8, 2, 5}
     };
 
-    cout<<"The board 0 is "<<(isValid(board0) ? "valid" : "invalid")<<endl;
-    cout<<"The board 1 is "<<(isValid(board1) ? "valid" : "invalid")<<endl;
+    cout<<"The board 0 is "<<(sudokuCheck(board0) ? "valid" : "invalid")<<endl;
+    cout<<"The board 1 is "<<(sudokuCheck(board1) ? "valid" : "invalid")<<endl;
 
     return 0;
 }
