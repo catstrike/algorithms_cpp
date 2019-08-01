@@ -5,3 +5,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(../shared/)
 add_executable(breadth_first_search breadth_first_search.cpp)
+add_executable(river_sizes river_sizes.cpp)
