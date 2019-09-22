@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <functional>
 
 using namespace std;
@@ -43,6 +44,45 @@ int distanceRecursive(const string& first, const string& second)
 	);
 }
 
+int distanceDynamic(const string& first, const string& second)
+{
+	int rows = second.size() + 1;
+	int columns = first.size() + 1;
+
+	vector<vector<int>> table(rows, vector<int>(columns));
+
+	for (int i = 1; i < rows; ++i) {
+		table[i][0] = i;
+	}
+
+	for (int j = 1; j < columns; ++j) {
+		table[0][j] = j;
+	}
+
+	for (int i = 1; i < rows; ++i) {
+		auto& secondChar = second[i - 1];
+
+		for (int j = 1; j < columns; ++j) {
+			auto& firstChar = first[j - 1];
+			auto& cell = table[i][j];
+
+			if (firstChar == secondChar) {
+				cell = table[i - 1][j - 1];
+				continue;
+			}
+
+			cell = 1 + min(
+				table[i][j - 1],
+				table[i - 1][j],
+				table[i - 1][j - 1]
+			);
+		}
+	}
+
+	return table[rows - 1][columns - 1];
+}
+
+
 void test(TestMethod method, const string& first, const string& second, int expected)
 {
 	auto result = method(first, second);
@@ -55,11 +95,30 @@ void test(TestMethod method, const string& first, const string& second, int expe
 
 int main()
 {
-	test(distanceRecursive, "future", "feature", 2);
-	test(distanceRecursive, "feature", "feature", 0);
-	test(distanceRecursive, "abc", "ac", 1);
-	test(distanceRecursive, "abbc", "abc", 1);
-	test(distanceRecursive, "aabbccdd", "abc", 5);	
+	vector<pair<string, TestMethod>> groups {
+		{"Recursive", distanceRecursive},
+		{"Dynamic", distanceDynamic}
+	};
+
+	vector<tuple<string, string, int>> tests {
+		{"future", "feature", 2},
+		{"feature", "feature", 0},
+		{"abc", "ac", 1},
+		{"abbc", "abc", 1},
+		{"aabbccdd", "abc", 5}
+	};
+
+	for (auto& group : groups) {
+		cout << group.first << endl;
+		for (auto& testInfo : tests) {
+			test(
+				group.second,
+				get<0>(testInfo),
+				get<1>(testInfo),
+				get<2>(testInfo)
+			);
+		}
+	}
 	
 	return 0;
 }
