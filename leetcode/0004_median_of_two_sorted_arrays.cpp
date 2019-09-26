@@ -36,12 +36,16 @@ double median_of_two_sorted_arrays(vector<int>& first, vector<int>& second)
         int firstContributes = low + (high - low) / 2;
         int secondContributes = middle - firstContributes;
 
-        // int[][2] middleElements = {
-        //     {firstContributes > 0 ? first[firstContributes - 1] : MIN_INT, first[firstContribbutes]},
-        //     {secondContributes > 0
+        int[][2] middleElements = {
+            {
+                firstContributes > 0 ? first[firstContributes - 1] : MIN_INT, 
+                firstContributes  first[firstContributes]
+            },
+            {
+                secondContributes > 0
 
-        //     }
-        // };
+            }
+        };
     }
 
     return 0;
@@ -49,8 +53,8 @@ double median_of_two_sorted_arrays(vector<int>& first, vector<int>& second)
 
 int main()
 {
-    vector<int> first { 1, 2, 7, 8};
-    vector<int> second { 2, 5, 6};
+    vector<int> first {1, 2, 7, 8};
+    vector<int> second {2, 5, 6};
 
     auto result = median_of_two_sorted_arrays(first, second);
 
