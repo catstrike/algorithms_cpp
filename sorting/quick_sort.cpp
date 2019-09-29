@@ -26,7 +26,7 @@ Iterator partition(Iterator left, Iterator right)
 
     while (left <= right) {
         if (*left > *pivot && *right <= *pivot) {
-            std::swap(*left, *right);
+            std::iter_swap(left, right);
         }
 
         if (*left <= *pivot) {
@@ -37,7 +37,7 @@ Iterator partition(Iterator left, Iterator right)
         }
     }
 
-    std::swap(*pivot, *right);
+    std::iter_swap(pivot, right);
 
     return right;
 }
@@ -45,7 +45,7 @@ Iterator partition(Iterator left, Iterator right)
 template<class Iterator>
 void quick_sort(Iterator left, Iterator right)
 {
-    if (distance(left, right) <= 1) {
+    if (std::distance(left, right) <= 1) {
         return;
     }
 
