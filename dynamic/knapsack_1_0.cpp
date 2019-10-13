@@ -26,32 +26,52 @@ int knapsackMaxValue(Iterator begin, Iterator end, int availableWeight)
     );
 }
 
-int knapsackMaxValueDynamic(const vector<Item>& items, int availableWeight)
+void getSelectedItems(const vector<Item>& items, vector<vector<int>>& table, vector<Item>& result)
+{
+    if (table.empty()) {
+        result = {};
+        return;
+    }
+
+    auto i = table.size() - 1;
+    auto j = table[0].size() - 1;
+
+    while (i > 0 && j > 0) {
+        const auto& item = items[i - 1];
+        if (table[i][j] == table[i - 1][j - item.weight] + item.value) {
+            result.push_back(item);
+            j -= item.weight;
+        }
+        i--;
+    }
+}
+
+int knapsackMaxValueDynamic(const vector<Item>& items, int availableWeight, vector<Item>& includedItems)
 {   
-    vector<vector<int>> cache(
+    vector<vector<int>> table(
         items.size() + 1,
         vector<int>(availableWeight + 1)
     );
 
-    for (int i = 1; i <= items.size(); ++i) {
-        for (int j = 1; j <= availableWeight; ++j) {
-            auto& item = items[i - 1];
-            auto& currentCache = cache[i][j];
-            auto& previous = cache[i - 1][j];
+    for (auto i = 1; i <= items.size(); ++i) {
+        const auto& item = items[i - 1];
 
-            if (item.weight > j) {
-                currentCache = previous;
+        for (auto j = 1; j <= availableWeight; ++j) {
+            if (j < item.weight) {
+                table[i][j] = table[i - 1][j];
                 continue;
             }
 
-            currentCache = max(
-                previous,
-                cache[i - 1][j - item.weight] + item.value
+            table[i][j] = max(
+                table[i - 1][j],
+                item.value + table[i - 1][j - item.weight]
             );
         }
     }
 
-    return cache[items.size()][availableWeight];
+    getSelectedItems(items, table, includedItems);
+
+    return table[items.size()][availableWeight];
 }
 
 int main()
@@ -66,7 +86,14 @@ int main()
     };
 
     cout << "Max value = " << knapsackMaxValue(test_00.begin(), test_00.end(), maxWeight) << endl;
-    cout << "Max value (dynamic) = " << knapsackMaxValueDynamic(test_00, maxWeight) << endl;
+
+    vector<Item> includedItems;
+    cout << "Max value (dynamic) = " << knapsackMaxValueDynamic(test_00, maxWeight, includedItems) << endl;
+
+    for (auto& item : includedItems) {
+        cout << "{" << item.weight << ", " << item.value << "} ";
+    }
+    cout << endl;
 
     return 0;
 }
