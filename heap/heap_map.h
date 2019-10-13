@@ -23,6 +23,13 @@ private: // - State
     std::unordered_map<MapKey, size_t> map;
     Comparer compare;
 
+public: // - Lifecycle
+    heap_map() {}
+    
+    heap_map(const Comparer& compare)
+        : compare(compare)
+    {}
+
 public: // - Public API
     iterator begin()
     {
