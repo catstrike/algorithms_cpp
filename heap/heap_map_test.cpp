@@ -34,14 +34,22 @@ int main()
 {
     heap_map<int, int> heap;
 
-    heap.push({0, 20});
-    heap.push({1, 15});
-    heap.push({2, 22});
-    heap.push({3, 7});
+    heap.insert({0, 20});
+    heap.insert({1, 15});
+    heap.insert({2, 22});
+    heap.insert({3, 7});
 
     printHeap(heap);
     cout << "size = " << heap.size() << endl;
     cout << "top = " << pairToString(heap.top()) << endl;
+
+    cout << "heap.insert_or_assign(1, 23)" << endl;
+    heap.insert_or_assign(1, 23);
+    printHeap(heap);
+
+    cout << "heap.insert_or_assign(1, 5)" << endl;
+    heap.insert_or_assign(1, 5);
+    printHeap(heap);
 
     cout << "heap.erase([2])" << endl;
     auto it = heap.find(2);
