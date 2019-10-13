@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#include "graph.h"
+
 using namespace std;
 
 void dfs(const vector<vector<int>>& graph, int vertexIndex, vector<bool>& visited, vector<int>& result)
@@ -39,34 +41,6 @@ vector<int> topologicalSort(const vector<vector<int>>& graph)
     reverse(begin(result), end(result));
 
     return result;
-}
-
-struct Edge {
-    int start;
-    int end;
-};
-
-vector<vector<int>> createGraph(const vector<Edge>& edges)
-{
-    auto maxIt = max_element(
-        begin(edges),
-        end(edges),
-        [](const Edge& a, const Edge& b) {
-            return max(a.start, a.end) < max(b.start, b.end);
-        }
-    );
-
-    auto totalVertices = max(maxIt->start, maxIt->end) + 1;
-
-    cout << totalVertices << endl;
-
-    vector<vector<int>> graph(totalVertices);
-
-    for (auto& edge : edges) {
-        graph[edge.start].push_back(edge.end);
-    }
-
-    return graph;
 }
 
 int main()
