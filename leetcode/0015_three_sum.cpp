@@ -15,12 +15,15 @@ vector<pair<int, int>> twoSum(It begin, It end, int target)
     
     unordered_set<int> previous;
     previous.insert(*begin);
+
+    It it = begin;
+    advance(it, 1);
     
-    for (It it = begin + 1; it != end; ++it) {
+    for (; it != end; ++it) {
         auto& num = *it;
         int expected = target - num;
         
-        if (previous.find(expected) == previous.end()) {
+        if (previous.find(expected) == std::end(previous)) {
             previous.insert(num);
             continue;
         }
@@ -38,12 +41,19 @@ vector<vector<int>> threeSum(vector<int>& nums) {
         return result;
     }
     
-    for (auto it = nums.begin(); it != nums.end() - 2; ++it) {
+    for (auto it = begin(nums); it != end(nums) - 2; ++it) {
         auto& num = *it;
-        auto pairs = twoSum(it + 1, nums.end(), -num);
+        auto pairs = twoSum(it + 1, end(nums), -num);
         
         for (auto pair : pairs) {
-            result.push_back({num, pair.first, pair.second});
+            vector<int> solution{num, pair.first, pair.second};
+            sort(begin(solution), end(solution));
+
+            if (find(begin(result), end(result), solution) != end(result)) {
+                continue;
+            }
+
+            result.push_back(solution);
         }
     }
     
