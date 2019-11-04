@@ -1,6 +1,7 @@
 project(leetcode)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_BUILD_TYPE Debug)
 
 add_executable(license_key_formating license_key_formating.cpp)
 add_executable(container_with_most_water container_with_most_water.cpp)
@@ -15,3 +16,4 @@ add_executable(0042_trappingg_rain_water 0042_trappingg_rain_water.cpp)
 add_executable(0053_maximum_subarray 0053_maximum_subarray.cpp)
 add_executable(0200_number_of_islands 0200_number_of_islands.cpp)
 add_executable(0215_kth_largest_element 0215_kth_largest_element.cpp)
+add_executable(1156_swap_for_longest_repeated_character_substring 1156_swap_for_longest_repeated_character_substring.cpp)
