@@ -7,3 +7,4 @@ add_executable(numbers_of_ways_to_make_change numbers_of_ways_to_make_change.cpp
 add_executable(min_number_of_coins_for_change min_number_of_coins_for_change.cpp)
 add_executable(knapsack_1_0 knapsack_1_0.cpp)
 add_executable(levenshtein_distance levenshtein_distance.cpp)
+add_executable(max_sum_increasing_subsequence max_sum_increasing_subsequence.cpp)
