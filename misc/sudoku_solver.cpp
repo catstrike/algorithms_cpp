@@ -217,7 +217,7 @@ auto solveSudoku(const vector<vector<int>> &cells)
         return cells;
     }
 
-    return result->getCells(); // TODO: memory leak
+    return result->getCells();
 }
 
 void report_elapsed_time(const char * tag, clock_t start, clock_t stop)
