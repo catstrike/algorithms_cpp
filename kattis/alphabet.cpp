@@ -17,15 +17,11 @@ int alphabet(string input)
         table[i][0] = i;
     }
 
-    for (int j = 0; j < columns; j++) {
-        table[0][j] = j;
-    }
-
     for (int i = 1; i < rows; i++) {
         for (int j = 1; j < columns; j++) {
             auto& target = table[i][j];
 
-            if (input[i - 1] == alphabetLetter(j - 1)) {
+            if (input[j - 1] == alphabetLetter(i - 1)) {
                 target = table[i - 1][j - 1];
                 continue;
             }
