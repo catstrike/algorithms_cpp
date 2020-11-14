@@ -3,23 +3,27 @@
 
 using namespace std;
 
-int uniquePaths(int m, int n)
-{
-    auto rows = m + 1;
-    auto columns = n + 1;
-    
-    vector<vector<int>> table(rows, vector<int>(columns));
-
-    int i = 1;
-    int j = 1;
-
-    for (; i < rows; i++) {
-        for (; j < columns; j++) {
-            table[i][j] = table[i - 1][j] + table[i][j - 1];
-        }
+int uniquePaths(int m, int n) {
+    if (n > m) {
+        return uniquePaths(n, m);
     }
-
-    return table[i - 1][j - 1];
+    
+    vector<vector<int>> table(2, vector<int>(n, 1));
+    
+    auto previous = &table[0];
+    auto current = &table[1];
+    
+    int i, j;
+    
+    for (i = 1; i < m; i++) {
+        for (j = 1; j < n; j++) {
+            (*current)[j] = (*previous)[j] + (*current)[j - 1];
+        }
+        
+        swap(previous, current);
+    }
+    
+    return (*previous)[n - 1];
 }
 
 void test(int m, int n, int expected)
