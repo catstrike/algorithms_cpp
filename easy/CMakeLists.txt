@@ -1,0 +1,10 @@
+project(Easy)
+
+set(CMAKE_CXX_STANDARD 17)
+
+include_directories(../shared/)
+
+add_executable(01_two_number_sum 01_two_number_sum.cpp)
+add_executable(02_unique_substrings 02_unique_substrings.cpp)
+add_executable(03_find_unordered_substring 03_find_unordered_substring.cpp)
+add_executable(longest_subarray_remove_one longest_subarray_remove_one.cpp)

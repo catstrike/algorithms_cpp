@@ -1,6 +1,9 @@
 #include <vector>
 #include <unordered_set>
 
+#include "my_serialization.h"
+#include "my_test.h"
+
 using namespace std;
 
 vector<int> twoNumberSum(vector<int> array, int targetSum) {
@@ -23,4 +26,13 @@ vector<int> twoNumberSum(vector<int> array, int targetSum) {
 	}
 	
 	return {};
+}
+
+int main()
+{
+	my_test(twoNumberSum, vector<int>{2, 7}, vector<int>{10, 20, 2, 7, -1}, 9);
+	my_test(twoNumberSum, vector<int>{-1, 7}, vector<int>{10, 20, 2, 7, -1}, 6);
+	my_test(twoNumberSum, vector<int>{10, 20}, vector<int>{10, 20, 2, 7, -1}, 30);
+
+	return 0;
 }
