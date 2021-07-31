@@ -13,10 +13,7 @@
  */
 class WindowFast
 {
-    using Counter = std::array<int, LETTERS_COUNT>;
-
-    Counter window;
-    Counter pattern;
+    std::array<int, LETTERS_COUNT> window;
 
     std::string text;
     size_t position;
@@ -32,10 +29,9 @@ public:
         , unfulfilledLetters(0)
     {
         window.fill(0);
-        pattern.fill(0);
 
         for (auto c : substring) {
-            ++pattern[LETTER_INDEX(c)];
+            --window[LETTER_INDEX(c)];
 
             setUnfulfilledFlag(c);
         }
@@ -75,21 +71,13 @@ public:
 private:
     void updateFulfilledFlag(char c)
     {
-        if (!isLetterOfInterest(c)) return;
-
         auto index = LETTER_INDEX(c);
 
-        if (window[index] == pattern[index]) {
+        if (window[index] == 0) {
             setFulfilledFlag(c);
         } else {
             setUnfulfilledFlag(c);
         }
-
-
-    }
-    bool isLetterOfInterest(char c)
-    {
-        return pattern[LETTER_INDEX(c)] > 0;
     }
 
     void setFulfilledFlag(char c)
@@ -100,66 +88,6 @@ private:
     void setUnfulfilledFlag(char c)
     {
         unfulfilledLetters |= 1ul << LETTER_INDEX(c);
-    }
-};
-
-/*
- * O(n*a)
- * n = length(text)
- * a = alphabet size
- */
-class Window
-{
-    using Counter = std::unordered_map<char, int>;
-
-    Counter window;
-    Counter pattern;
-
-    std::string text;
-    size_t position;
-    size_t windowSize;
-
-public:
-    Window(std::string text, std::string substring)
-        : position(substring.size())
-        , windowSize(substring.size())
-        , text(text)
-    {
-        for (auto c : substring) {
-            ++pattern[c];
-        }
-
-        for (size_t i = 0; i < windowSize; ++i) {
-            ++window[text[i]];
-        }
-    }
-
-    bool moveNext()
-    {
-        if (position == text.size()) {
-            return false;
-        }
-
-        auto lastCharacter = text[position - windowSize];
-        auto nextCharacter = text[position];
-
-        ++window[nextCharacter];
-        --window[lastCharacter];
-
-        position++;
-
-        return true;
-    }
-
-    bool isFulfilled()
-    {
-        for (auto pair : pattern) {
-            if (window[pair.first] != pair.second) {
-                return false;
-            }
-        }
-
-        return true;
     }
 };
 
